@@ -10,25 +10,17 @@ function App() {
 
 function LoadJokes() {
   const [jokes, setJokes] = useState([]);
+  const [newJokes, setNewJokes] = useState(false);
   
   useEffect(() => {
     fetch("https://api.chucknorris.io/jokes/random")
     .then ((resp) => resp.json())
     .then ((data) => setJokes(data))
-  }, []);
-  return (
-    <div className="jokes">
-        <Joke jokes={jokes}></Joke>
-    </div>
-  );
-}
-
-function Joke(props) {
-  const {value} = props.jokes;
+  }, [newJokes]);
   return (
     <div className="joke">
-      <h2>{value}</h2>
-      <button>New Joke</button>
+      <h2>{jokes.value}</h2>
+      <button onClick={() => setNewJokes(!newJokes)}>New Joke</button>
     </div>
   );
 }
